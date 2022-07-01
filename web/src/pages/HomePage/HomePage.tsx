@@ -5,13 +5,16 @@ const HomePage = () => {
     <>
       <MetaTags title="Home" description="Home page" />
 
-      <div>
-        <h1>THE</h1>
-        <h1>GRAVEYARD</h1>
-        <h1>OF YOUR</h1>
-        <h1>FAILED</h1>
-        <h1>IDEAS</h1>
+      <div style={{ fontFamily: 'Typephace' }} className="flex justify-center">
+        <div className="text-9xl font-black">
+          <div>THE</div>
+          <div>GRAVEYARD</div>
+          <div>OF YOUR</div>
+          <div>FAILED</div>
+          <div>IDEAS</div>
+        </div>
       </div>
+      <p style={{ fontFamily: 'Typephace' }}>This is my first failed idea</p>
     </>
   )
 }
