@@ -9,14 +9,17 @@ export default async () => {
     //
     // Update "const data = []" to match your data model and seeding needs
     //
-    const data: Prisma.UserExampleCreateArgs['data'][] = [
+    const data: Prisma.IdeaCreateArgs['data'][] = [
       // To try this example data with the UserExample model in schema.prisma,
       // uncomment the lines below and run 'yarn rw prisma migrate dev'
-      //
-      // { name: 'alice', email: 'alice@example.com' },
-      // { name: 'mark', email: 'mark@example.com' },
-      // { name: 'jackie', email: 'jackie@example.com' },
-      // { name: 'bob', email: 'bob@example.com' },
+      {
+        title: 'My first failed idea',
+        body: 'This is my first idea that I didnt finished',
+      },
+      {
+        title: 'My second failed idea',
+        body: 'This is second failed idea that I didnt finished',
+      },
     ]
     console.log(
       "\nUsing the default './scripts/seed.{js,ts}' template\nEdit the file to add seed data\n"
@@ -28,8 +31,8 @@ export default async () => {
       //
       // Change to match your data model and seeding needs
       //
-      data.map(async (data: Prisma.UserExampleCreateArgs['data']) => {
-        const record = await db.userExample.create({ data })
+      data.map(async (data: Prisma.IdeaCreateArgs['data']) => {
+        const record = await db.idea.create({ data })
         console.log(record)
       })
     )
