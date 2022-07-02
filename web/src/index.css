@@ -8,9 +8,6 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-/**
- * END --- SETUP TAILWINDCSS EDIT
- */
 
 @font-face {
   font-family: 'Typephace';
