@@ -5,16 +5,43 @@ const About = (): JSX.Element => (
     style={{ fontFamily: 'Akkuratmono-Regular,monospace' }}
     className="mt-9 m-auto w-4/5 text-3xl"
   >
-    <p style={{ fontFamily: 'Typephace' }} className="text-center text-4xl mb-4">Hi there</p>
+    <p
+      style={{ fontFamily: 'Typephace' }}
+      className="text-center text-4xl mb-4"
+    >
+      Hi there
+    </p>
     <p>
-      Since you landed here I guess you have your own <b>IDEAS</b> that field, or you
-      have side projects that failed and you haven&apos;t finished them.
+      Since you landed here I guess you have your own <b>IDEAS</b> that field,
+      or you have side projects that failed and you haven&apos;t finished them.
       <br />
       Doesn&apos;t matter if you are developer or product manager or designer or
-      director or engineering or whatever, if you have <b>IDEAS</b> that you failed to
-      implement or they just didn&apos;t work <b>ADD</b> them here.
+      director or engineering or whatever, if you have <b>IDEAS</b> that you
+      failed to implement or they just didn&apos;t work <b>ADD</b> them here.
     </p>
   </div>
+)
+
+const ScrollDownToGraveyard = (): JSX.Element => (
+  <button
+    type="button"
+    className="mt-10 transform transition duration-500 hover:scale-150"
+  >
+    <svg
+      className="w-8 h-8"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M19 13l-7 7-7-7m14-8l-7 7-7-7"
+      ></path>
+    </svg>
+  </button>
 )
 
 const HomePage = (): JSX.Element => {
@@ -30,7 +57,10 @@ const HomePage = (): JSX.Element => {
           <div>IDEAS</div>
         </div>
       </div>
-      <About />
+      <div className="flex flex-col items-center">
+        <About />
+        <ScrollDownToGraveyard />
+      </div>
     </>
   )
 }
