@@ -2,12 +2,15 @@ import { MetaTags } from '@redwoodjs/web'
 
 const About = (): JSX.Element => (
   <div
-    style={{ fontFamily: 'Akkuratmono-Regular,monospace' }}
-    className="mt-9 m-auto w-4/5 text-3xl max-w-7xl"
+    style={{
+      fontSize: 'var(--fs-400)',
+      fontFamily: 'Akkuratmono-Regular,monospace',
+    }}
+    className="mt-9 m-auto w-4/5 max-w-7xl"
   >
     <p
-      style={{ fontFamily: 'Typephace' }}
-      className="text-center text-4xl mb-4"
+      style={{ fontSize: 'var(--fs-400)', fontFamily: 'Typephace' }}
+      className="text-center mb-4"
     >
       Hi there
     </p>
@@ -53,7 +56,7 @@ const HomePage = (): JSX.Element => {
           style={{ fontFamily: 'Typephace' }}
           className="flex justify-center"
         >
-          <div className="text-9xl font-black">
+          <div style={{ fontSize: 'var(--fs-xl)' }} className="font-black">
             <div>THE</div>
             <div>GRAVEYARD</div>
             <div>OF YOUR FAILED</div>

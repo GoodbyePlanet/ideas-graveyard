@@ -16,3 +16,19 @@ html {
   font-family: 'Typephace';
   src: local('Typephace'), url(./fonts/Typephace.ttf) format('truetype');
 }
+
+:root {
+  --fs-xl: clamp(3rem, 8vw + 1rem, 10rem);
+  --fs-400: 1.250rem;
+}
+
+body {
+  font-size: var(--fs-400);
+  line-height: 1
+}
+
+@media (min-width: 40em) {
+  :root {
+    --fs-400: 1.875rem;
+  }
+}
