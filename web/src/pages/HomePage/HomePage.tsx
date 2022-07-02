@@ -3,7 +3,7 @@ import { MetaTags } from '@redwoodjs/web'
 const About = (): JSX.Element => (
   <div
     style={{ fontFamily: 'Akkuratmono-Regular,monospace' }}
-    className="mt-9 m-auto w-4/5 text-3xl"
+    className="mt-9 m-auto w-4/5 text-3xl max-w-7xl"
   >
     <p
       style={{ fontFamily: 'Typephace' }}
@@ -23,8 +23,8 @@ const About = (): JSX.Element => (
 )
 
 const ScrollDownToGraveyard = (): JSX.Element => (
-  <button
-    type="button"
+  <a
+    href="#graveyard"
     className="mt-10 transform transition duration-500 hover:scale-150"
   >
     <svg
@@ -41,27 +41,36 @@ const ScrollDownToGraveyard = (): JSX.Element => (
         d="M19 13l-7 7-7-7m14-8l-7 7-7-7"
       ></path>
     </svg>
-  </button>
+  </a>
 )
 
 const HomePage = (): JSX.Element => {
   return (
-    <>
+    <main>
       <MetaTags title="Home" description="Home page" />
-
-      <div style={{ fontFamily: 'Typephace' }} className="flex justify-center">
-        <div className="text-9xl font-black">
-          <div>THE</div>
-          <div>GRAVEYARD</div>
-          <div>OF YOUR FAILED</div>
-          <div>IDEAS</div>
+      <section className="h-screen flex flex-col justify-center">
+        <div
+          style={{ fontFamily: 'Typephace' }}
+          className="flex justify-center"
+        >
+          <div className="text-9xl font-black">
+            <div>THE</div>
+            <div>GRAVEYARD</div>
+            <div>OF YOUR FAILED</div>
+            <div>IDEAS</div>
+          </div>
         </div>
+        <div className="flex flex-col items-center">
+          <About />
+          <ScrollDownToGraveyard />
+        </div>
+      </section>
+      <div className="text-center text-3xl">
+        <section id="graveyard" className="h-screen bg-orange-600">
+          <p>Graveyad page goes here...</p>
+        </section>
       </div>
-      <div className="flex flex-col items-center">
-        <About />
-        <ScrollDownToGraveyard />
-      </div>
-    </>
+    </main>
   )
 }
 
