@@ -19,7 +19,9 @@ html {
 
 :root {
   --fs-xl: clamp(3rem, 8vw + 1rem, 10rem);
-  --fs-400: 1.250rem;
+  --fs-400: clamp(1rem, 1vw + 1rem, 1.875rem);
+
+  --failed-red: #d54955;
 }
 
 body {

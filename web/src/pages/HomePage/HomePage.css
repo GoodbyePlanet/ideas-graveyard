@@ -1,0 +1,14 @@
+.app-title-font {
+  font-family: Typephace, serif;
+}
+
+.app-title-text {
+  font-size: var(--fs-xl);
+}
+
+.failed-color {
+  color: var(--failed-red);
+}
+
+
+

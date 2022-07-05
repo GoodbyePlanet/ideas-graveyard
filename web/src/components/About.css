@@ -1,0 +1,8 @@
+.about-container {
+  font-size: var(--fs-400);
+  font-family: Akkuratmono-Regular, monospace;
+}
+
+.about-header-text {
+  font-family: Typephace, serif;
+}
