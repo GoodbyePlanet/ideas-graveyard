@@ -6,9 +6,6 @@
  * For more information, see: https://tailwindcss.com/docs/installation#include-tailwind-in-your-css
  */
 @import 'tailwindcss/base';
-html {
-  scroll-behavior: smooth;
-}
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
@@ -18,10 +15,14 @@ html {
 }
 
 :root {
-  --fs-xl: clamp(3rem, 8vw + 1rem, 10rem);
+  --fs-xl: clamp(3rem, 8vw + 1rem, 12rem);
   --fs-400: clamp(1rem, 1vw + 1rem, 1.875rem);
 
   --failed-red: #d54955;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -29,7 +30,7 @@ body {
   line-height: 1
 }
 
-@media (min-width: 40em) {
+@media (min-width: 50em) {
   :root {
     --fs-400: 1.875rem;
   }
