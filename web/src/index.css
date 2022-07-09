@@ -27,7 +27,8 @@ html {
 
 body {
   font-size: var(--fs-400);
-  line-height: 1
+  line-height: 1;
+  font-family: Akkuratmono-Regular, monospace;
 }
 
 @media (min-width: 50em) {

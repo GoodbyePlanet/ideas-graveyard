@@ -1,6 +1,7 @@
 import { MetaTags } from '@redwoodjs/web'
 
 import { About } from 'src/components/About'
+import { GoToGraveyard } from 'src/components/GoToGraveyard'
 
 import './HomePage.css'
 
@@ -20,7 +21,9 @@ const HomePage = (): JSX.Element => {
           </div>
         </div>
         <div className="flex flex-col items-center">
+          TODO: {/*Try adding min-height: 0 to this element*/}
           <About />
+          <GoToGraveyard />
         </div>
       </div>
     </>
