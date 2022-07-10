@@ -10,7 +10,7 @@ const HomePage = (): JSX.Element => {
     <>
       <MetaTags title="Home" description="Home page" />
       <div className="h-screen flex flex-col justify-center">
-        <div className="app-title-font flex justify-center min-h-0 overflow-auto">
+        <div className="app-title-font flex justify-center">
           <div className="app-title-text font-black">
             <div>THE</div>
             <div>GRAVEYARD</div>
@@ -20,8 +20,7 @@ const HomePage = (): JSX.Element => {
             <div>IDEAS</div>
           </div>
         </div>
-        <div className="flex flex-col items-center">
-          TODO: {/*Try adding min-height: 0 to this element*/}
+        <div className="flex flex-col items-center min-h-0">
           <About />
           <GoToGraveyard />
         </div>
