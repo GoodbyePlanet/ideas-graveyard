@@ -1,6 +1,37 @@
 import { MetaTags } from '@redwoodjs/web'
 
-const GraveyardPage = () => {
+import './GraveyardPage.css'
+
+interface Idea {
+  id: number
+  subject: string
+  body: string
+}
+
+const GraveyardPage = (): JSX.Element => {
+  const failedIdeas: Idea[] = [
+    {
+      id: 1,
+      subject: 'Failed idea',
+      body: 'This is my first failed idea. I started very enthusiastic but ended not even finishing my cool idea.',
+    },
+    {
+      id: 2,
+      subject: 'Failed idea',
+      body: 'This is my first failed idea. I started very enthusiastic but ended not even finishing my cool idea.',
+    },
+    {
+      id: 3,
+      subject: 'Failed idea',
+      body: 'This is my first failed idea. I started very enthusiastic but ended not even finishing my cool idea.',
+    },
+    {
+      id: 4,
+      subject: 'Failed idea',
+      body: 'This is my first failed idea. I started very enthusiastic but ended not even finishing my cool idea.',
+    },
+  ]
+
   return (
     <>
       <MetaTags title="Graveyard" description="Graveyard page" />
@@ -11,90 +42,28 @@ const GraveyardPage = () => {
             Login
           </button>
         </div>
-        <div style={{ display: 'flex' }}>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              width: '500px',
-              margin: '2rem',
-            }}
-          >
-            <img
-              style={{ width: '8rem', height: '8rem' }}
-              src="rip.png"
-              alt="as"
-            />
-            <p
-              style={{ marginTop: '1rem', fontSize: '1.5rem', fontWeight: 600 }}
-            >
-              Failed idea
-            </p>
-            <p
-              style={{
-                marginTop: '1rem',
-                textAlign: 'center',
-                fontSize: '1.2rem',
-              }}
-            >
-              This is my first failed idea. I started very entustiastic but
-              ended not even finishig it.
-            </p>
+        <div className="flex justify-center">
+          <div className="relative flex justify-center flex-wrap w-4/5 mt-4 border-gray-200">
+            {failedIdeas.map((idea) => (
+              <div
+                key={idea.id}
+                className="flex flex-col items-center w-96 m-8 border-2 border-gray-200"
+              >
+                <img className="w-32 h-32" src="rip.png" alt="Rip icon" />
+                <p className="mt-4 text-2xl font-semibold">{idea.subject}</p>
+                <p
+                  style={{ fontSize: 'var(--fs-small)' }}
+                  className="mt-4 text-center"
+                >
+                  {idea.body}
+                </p>
+              </div>
+            ))}
+
+            <div className="shovelContainer">
+              <img className="shovelImg" src="shovel.svg" alt="Shovel" />
+            </div>
           </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              width: '500px',
-              margin: '2rem',
-            }}
-          >
-            <img
-              style={{ width: '8rem', height: '8rem' }}
-              src="rip.png"
-              alt="as"
-            />
-            <p
-              style={{ marginTop: '1rem', fontSize: '1.5rem', fontWeight: 600 }}
-            >
-              Failed idea
-            </p>
-            <p
-              style={{
-                marginTop: '1rem',
-                textAlign: 'center',
-                fontSize: '1.2rem',
-              }}
-            >
-              This is my first failed idea. I started very entustiastic but
-              ended not even finishig it.
-            </p>
-          </div>
-        </div>
-        <div
-          style={{
-            position: 'fixed',
-            right: 0,
-            border: '1px solid #512b2b',
-            marginRight: '-2rem',
-            borderRadius: '50%',
-            background: 'white',
-            cursor: "pointer",
-          }}
-        >
-          <img
-            style={{
-              height: '5rem',
-              width: '5rem',
-              paddingTop: '10px',
-              paddingBottom: '10px',
-              paddingRight: '15px',
-            }}
-            src="shovel.svg"
-            alt="Shovel"
-          />
         </div>
       </header>
     </>

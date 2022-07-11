@@ -1,0 +1,20 @@
+.shovelContainer {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  background: white;
+  border-radius: 50%;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.shovelContainer:hover {
+  background: radial-gradient(#FFF 40%, #000);
+}
+
+.shovelImg {
+  height: 5rem;
+  width: 5rem;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

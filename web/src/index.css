@@ -17,6 +17,7 @@
 :root {
   --fs-xl: clamp(3rem, 8vw + 1rem, 12rem);
   --fs-400: clamp(1rem, 1vw + 1rem, 1.875rem);
+  --fs-small: 1.2rem;
 
   --failed-red: #d54955;
 }
