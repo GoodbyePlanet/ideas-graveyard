@@ -1,6 +1,7 @@
 import { MetaTags } from '@redwoodjs/web'
 
 import './GraveyardPage.css'
+import { IdeaItem } from 'src/components/IdeaItem'
 
 interface Idea {
   id: number
@@ -42,30 +43,18 @@ const GraveyardPage = (): JSX.Element => {
             Login
           </button>
         </div>
-        <div className="flex justify-center">
-          <div className="relative flex justify-center flex-wrap w-4/5 mt-4 border-gray-200">
-            {failedIdeas.map((idea) => (
-              <div
-                key={idea.id}
-                className="flex flex-col items-center w-96 m-8 border-2 border-gray-200"
-              >
-                <img className="w-32 h-32" src="rip.png" alt="Rip icon" />
-                <p className="mt-4 text-2xl font-semibold">{idea.subject}</p>
-                <p
-                  style={{ fontSize: 'var(--fs-small)' }}
-                  className="mt-4 text-center"
-                >
-                  {idea.body}
-                </p>
-              </div>
-            ))}
+      </header>
 
-            <div className="shovelContainer">
-              <img className="shovelImg" src="shovel.svg" alt="Shovel" />
-            </div>
+      <div className="flex justify-center">
+        <div className="relative flex justify-center flex-wrap w-4/5 mt-4 border-gray-200">
+          {failedIdeas.map((idea) => (
+            <IdeaItem key={idea.id} subject={idea.subject} body={idea.body} />
+          ))}
+          <div className="shovelContainer">
+            <img className="shovelImg" src="shovel.svg" alt="Shovel" />
           </div>
         </div>
-      </header>
+      </div>
     </>
   )
 }
