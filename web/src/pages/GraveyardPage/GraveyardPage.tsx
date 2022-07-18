@@ -2,6 +2,7 @@ import { MetaTags } from '@redwoodjs/web'
 
 import './GraveyardPage.css'
 import { IdeaItem } from 'src/components/IdeaItem'
+import { Link, routes } from "@redwoodjs/router";
 
 interface Idea {
   id: number
@@ -39,9 +40,12 @@ const GraveyardPage = (): JSX.Element => {
 
       <header>
         <div className="flex justify-end items-center h-14 border-b-2 border-gray-200">
-          <button className="text-base mr-4 hover:bg-black text-black hover:text-white py-2 px-4 border rounded">
+          <Link
+            className="text-base mr-4 hover:bg-black text-black hover:text-white py-2 px-4 border rounded"
+            to={routes.login()}
+          >
             Login
-          </button>
+          </Link>
         </div>
       </header>
 
