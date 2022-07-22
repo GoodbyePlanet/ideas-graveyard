@@ -4,6 +4,8 @@ import { useAuth } from '@redwoodjs/auth'
 
 import { Modal } from 'src/components/modals/Modal'
 
+import './LoginModal.css'
+
 interface LoginModalProps {
   handleOnClose: () => void
   show: boolean
@@ -14,6 +16,7 @@ export const LoginModal = ({
   handleOnClose,
 }: LoginModalProps): JSX.Element => {
   const [email, setEmail] = useState('')
+  const [emailError, setEmailError] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const { logIn } = useAuth()
@@ -22,13 +25,22 @@ export const LoginModal = ({
     return null
   }
 
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) =>
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>): void =>
     setEmail(event.target.value)
+
+  const isValidEmail = (): boolean => /\S+@\S+\.\S+/.test(email)
 
   const handleLogin = async (
     event: React.MouseEvent<HTMLButtonElement>
   ): Promise<void> => {
     event.preventDefault()
+
+    if (!isValidEmail()) {
+      setEmailError(true)
+      return
+    } else {
+      setEmailError(false)
+    }
 
     try {
       setLoading(true)
@@ -39,9 +51,8 @@ export const LoginModal = ({
       if (error) {
         throw error
       }
-      alert('Check your email for the login link!')
     } catch (error) {
-      alert(error.error_description || error.message)
+      console.error('An error occurred', error)
     } finally {
       setLoading(false)
     }
@@ -58,14 +69,18 @@ export const LoginModal = ({
             <input
               type="text"
               placeholder="Email"
-              style={{ fontSize: 'var(--fs-small)' }}
               className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-black"
               value={email}
               onChange={handleEmailChange}
             ></input>
+            {emailError && (
+              <p className="email-error">Please enter valid email</p>
+            )}
           </div>
           <button
-            className="mt-6 text-base mr-4 hover:bg-black text-black hover:text-white py-2 px-4 border rounded"
+            type="button"
+            className="mt-6 text-base mr-4 hover:bg-black text-black hover:text-white py-2 px-4 border rounded focus:outline:none"
+            disabled={loading}
             onClick={(e) => handleLogin(e)}
           >
             Send magic link
