@@ -75,7 +75,9 @@ const LoginModal = ({ show, handleOnClose }: LoginModalProps): JSX.Element => {
 
   return (
     <Modal show={show} onClose={handleOnClose}>
-      <h3 className="text-2xl font-bold text-center">Login using magic link</h3>
+      <h3 className="text-2xl font-medium text-center">
+        Login using magic link
+      </h3>
       <form>
         <div className="mt-4">
           <div>
