@@ -1,20 +1,36 @@
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useRef } from 'react'
 
 import './Modal.css'
 
 interface ModalProps {
   children: ReactNode
   onClose: () => void
+  show: boolean
 }
 
-export const Modal = ({ onClose, children }: ModalProps): JSX.Element => (
-  <div className="modal flex items-center justify-center min-h-screen bg-gray-100">
-    <div className="modal-content px-8 py-6 mt-4 text-left bg-white shadow-lg">
-      <CloseButton onClose={onClose} />
-      {children}
+export const Modal = ({ children, onClose, show }: ModalProps): JSX.Element => {
+  const modalRef = useRef(null)
+
+  useEffect(() => {
+    if (show) {
+      modalRef.current.classList.add('visible')
+    } else {
+      modalRef.current.classList.remove('visible')
+    }
+  }, [show])
+
+  return (
+    <div
+      ref={modalRef}
+      className="modal flex items-center justify-center min-h-screen bg-gray-100"
+    >
+      <div className="modal-content px-8 py-6 mt-4 text-left bg-white shadow-lg">
+        <CloseButton onClose={onClose} />
+        {children}
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 const CloseButton = ({ onClose }: { onClose: () => void }): JSX.Element => (
   <button
