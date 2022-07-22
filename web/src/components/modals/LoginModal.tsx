@@ -17,6 +17,7 @@ export const LoginModal = ({
 }: LoginModalProps): JSX.Element => {
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState(false)
+  const [loginSuccess, setLoginSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const { logIn } = useAuth()
@@ -48,9 +49,12 @@ export const LoginModal = ({
         email,
         redirectTo: `${window.location.origin}/graveyard`,
       })
+
       if (error) {
         throw error
       }
+
+      setLoginSuccess(true)
     } catch (error) {
       console.error('An error occurred', error)
     } finally {
@@ -85,6 +89,12 @@ export const LoginModal = ({
           >
             Send magic link
           </button>
+
+          {loginSuccess && (
+            <p className="text-base font-semibold mt-6 ml-1">
+              Check your email inbox for magic link
+            </p>
+          )}
         </div>
       </form>
     </Modal>

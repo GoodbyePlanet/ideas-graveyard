@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import { useAuth } from '@redwoodjs/auth'
 import { MetaTags } from '@redwoodjs/web'
 
 import { Header } from 'src/components/Header'
@@ -14,8 +15,16 @@ interface IdeaProps {
   body: string
 }
 
+interface AuthButtonProps {
+  currentUser: any
+  handleLogout: () => void
+  handleIsLoginModalOpen: () => void
+}
+
 const GraveyardPage = (): JSX.Element => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+
+  const { currentUser, logOut } = useAuth()
 
   const failedIdeas: IdeaProps[] = [
     {
@@ -42,12 +51,19 @@ const GraveyardPage = (): JSX.Element => {
 
   const handleOnClose = (): void => setIsLoginModalOpen(false)
   const handleIsLoginModalOpen = (): void => setIsLoginModalOpen(true)
+  const handleLogout = async (): Promise<void> => await logOut()
 
   return (
     <>
       <MetaTags title="Graveyard" description="Graveyard page" />
 
-      <Header onClick={handleIsLoginModalOpen} />
+      <Header user={currentUser?.email as string}>
+        <AuthButton
+          currentUser={currentUser}
+          handleLogout={handleLogout}
+          handleIsLoginModalOpen={handleIsLoginModalOpen}
+        />
+      </Header>
       <LoginModal show={isLoginModalOpen} handleOnClose={handleOnClose} />
 
       <div className="flex justify-center">
@@ -63,5 +79,18 @@ const GraveyardPage = (): JSX.Element => {
     </>
   )
 }
+
+const AuthButton = ({
+  currentUser,
+  handleLogout,
+  handleIsLoginModalOpen,
+}: AuthButtonProps): JSX.Element => (
+  <button
+    className="text-base mr-4 hover:bg-black text-black hover:text-white py-2 px-4 border rounded"
+    onClick={currentUser ? handleLogout : handleIsLoginModalOpen}
+  >
+    {currentUser ? 'Logout' : 'Login'}
+  </button>
+)
 
 export default GraveyardPage
