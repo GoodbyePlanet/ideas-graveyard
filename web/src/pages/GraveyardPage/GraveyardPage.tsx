@@ -5,6 +5,7 @@ import { MetaTags } from '@redwoodjs/web'
 import './GraveyardPage.css'
 import { IdeaItem } from 'src/components/IdeaItem'
 import { Modal } from 'src/components/Modal'
+import { Header } from 'src/components/Header'
 
 interface IdeaProps {
   id: number
@@ -44,22 +45,13 @@ const GraveyardPage = (): JSX.Element => {
   ]
 
   const handleOnClose = (): void => setIsLoginModalOpen(false)
+  const handleIsLoginModalOpen = (): void => setIsLoginModalOpen(true)
 
   return (
     <>
       <MetaTags title="Graveyard" description="Graveyard page" />
 
-      <header>
-        <div className="flex justify-end items-center h-14 border-b-2 border-gray-200">
-          <button
-            className="text-base mr-4 hover:bg-black text-black hover:text-white py-2 px-4 border rounded"
-            onClick={() => setIsLoginModalOpen(true)}
-          >
-            Login
-          </button>
-        </div>
-      </header>
-
+      <Header onClick={handleIsLoginModalOpen} />
       <LoginModal show={isLoginModalOpen} handleOnClose={handleOnClose} />
 
       <div className="flex justify-center">
