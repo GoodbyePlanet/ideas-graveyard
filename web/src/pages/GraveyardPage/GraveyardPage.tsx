@@ -1,21 +1,17 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { MetaTags } from '@redwoodjs/web'
 
-import './GraveyardPage.css'
-import { IdeaItem } from 'src/components/IdeaItem'
-import { Modal } from 'src/components/Modal'
 import { Header } from 'src/components/Header'
+import { IdeaItem } from 'src/components/IdeaItem'
+import { LoginModal } from 'src/components/modals/LoginModal'
+
+import './GraveyardPage.css'
 
 interface IdeaProps {
   id: number
   subject: string
   body: string
-}
-
-interface LoginModalProps {
-  handleOnClose: () => void
-  show: boolean
 }
 
 const GraveyardPage = (): JSX.Element => {
@@ -65,35 +61,6 @@ const GraveyardPage = (): JSX.Element => {
         </div>
       </div>
     </>
-  )
-}
-
-const LoginModal = ({ show, handleOnClose }: LoginModalProps): JSX.Element => {
-  if (!show) {
-    return null
-  }
-
-  return (
-    <Modal show={show} onClose={handleOnClose}>
-      <h3 className="text-2xl font-medium text-center">
-        Login using magic link
-      </h3>
-      <form>
-        <div className="mt-4">
-          <div>
-            <input
-              type="text"
-              placeholder="Email"
-              style={{ fontSize: 'var(--fs-small)' }}
-              className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-black"
-            ></input>
-          </div>
-          <button className="mt-6 text-base mr-4 hover:bg-black text-black hover:text-white py-2 px-4 border rounded">
-            Send magic link
-          </button>
-        </div>
-      </form>
-    </Modal>
   )
 }
 
