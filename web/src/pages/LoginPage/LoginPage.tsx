@@ -23,7 +23,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <MetaTags title="Login" description="Login page" />
+      <MetaTags title="Modal" description="Modal page" />
 
       <div className="row flex flex-center">
         <div className="col-6 form-widget">
