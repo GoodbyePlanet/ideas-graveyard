@@ -1,14 +1,14 @@
 import './IdeaItem.css'
 
 interface Idea {
-  subject: string
+  title: string
   body: string
 }
 
-export const IdeaItem = ({ subject, body }: Idea): JSX.Element => (
+export const IdeaItem = ({ title, body }: Idea): JSX.Element => (
   <div className="ideaItemContainer flex flex-col items-center p-4 w-96 m-8 border-2 border-gray-200">
     <img className="w-32 h-32" src="rip.png" alt="Rip icon" />
-    <p className="mt-4 text-2xl font-semibold">{subject}</p>
+    <p className="mt-4 text-2xl font-semibold">{title}</p>
     <p style={{ fontSize: 'var(--fs-small)' }} className="mt-4 text-center">
       {body}
     </p>
