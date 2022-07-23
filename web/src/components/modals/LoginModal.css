@@ -1,0 +1,15 @@
+button:disabled,
+button[disabled] {
+  cursor: not-allowed;
+}
+
+input {
+  font-size: var(--fs-small);
+}
+
+.email-error {
+  font-size: var(--fs-extra-small);
+  color: var(--failed-red);
+  margin-top: 0.5rem;
+  margin-left: 2px;
+}

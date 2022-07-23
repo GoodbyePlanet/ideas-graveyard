@@ -1,16 +1,32 @@
+import React, { useState } from 'react'
+
+import { useAuth } from '@redwoodjs/auth'
 import { MetaTags } from '@redwoodjs/web'
 
-import './GraveyardPage.css'
+import { Header } from 'src/components/Header'
 import { IdeaItem } from 'src/components/IdeaItem'
+import { LoginModal } from 'src/components/modals/LoginModal'
 
-interface Idea {
+import './GraveyardPage.css'
+
+interface IdeaProps {
   id: number
   subject: string
   body: string
 }
 
+interface AuthButtonProps {
+  isAuthenticated: boolean
+  handleLogout: () => void
+  handleIsLoginModalOpen: () => void
+}
+
 const GraveyardPage = (): JSX.Element => {
-  const failedIdeas: Idea[] = [
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+
+  const { currentUser, isAuthenticated, logOut } = useAuth()
+
+  const failedIdeas: IdeaProps[] = [
     {
       id: 1,
       subject: 'Failed idea',
@@ -33,17 +49,22 @@ const GraveyardPage = (): JSX.Element => {
     },
   ]
 
+  const handleOnClose = (): void => setIsLoginModalOpen(false)
+  const handleIsLoginModalOpen = (): void => setIsLoginModalOpen(true)
+  const handleLogout = async (): Promise<void> => await logOut()
+
   return (
     <>
       <MetaTags title="Graveyard" description="Graveyard page" />
 
-      <header>
-        <div className="flex justify-end items-center h-14 border-b-2 border-gray-200">
-          <button className="text-base mr-4 hover:bg-black text-black hover:text-white py-2 px-4 border rounded">
-            Login
-          </button>
-        </div>
-      </header>
+      <Header user={currentUser?.email as string}>
+        <AuthButton
+          isAuthenticated={isAuthenticated}
+          handleLogout={handleLogout}
+          handleIsLoginModalOpen={handleIsLoginModalOpen}
+        />
+      </Header>
+      <LoginModal show={isLoginModalOpen} handleOnClose={handleOnClose} />
 
       <div className="flex justify-center">
         <div className="relative flex justify-center flex-wrap w-4/5 mt-4 border-gray-200">
@@ -58,5 +79,18 @@ const GraveyardPage = (): JSX.Element => {
     </>
   )
 }
+
+const AuthButton = ({
+  isAuthenticated,
+  handleLogout,
+  handleIsLoginModalOpen,
+}: AuthButtonProps): JSX.Element => (
+  <button
+    className="text-base mr-4 hover:bg-black text-black hover:text-white py-2 px-4 border rounded"
+    onClick={isAuthenticated ? handleLogout : handleIsLoginModalOpen}
+  >
+    {isAuthenticated ? 'Logout' : 'Login'}
+  </button>
+)
 
 export default GraveyardPage
