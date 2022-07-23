@@ -14,6 +14,8 @@ export const QUERY = gql`
       id
       title
       body
+      user
+      createdAt
     }
   }
 `
@@ -31,7 +33,13 @@ export const Success = ({ ideas }: CellSuccessProps<IdeasQuery>) => {
     <div className="flex justify-center">
       <div className="relative flex justify-center flex-wrap w-4/5 mt-4 border-gray-200">
         {ideas.map((idea) => (
-          <IdeaItem key={idea.id} title={idea.title} body={idea.body} />
+          <IdeaItem
+            key={idea.id}
+            title={idea.title}
+            body={idea.body}
+            user={idea.user}
+            createdAt={idea.createdAt}
+          />
         ))}
         <div className="shovelContainer">
           <img className="shovelImg" src="shovel.svg" alt="Shovel" />

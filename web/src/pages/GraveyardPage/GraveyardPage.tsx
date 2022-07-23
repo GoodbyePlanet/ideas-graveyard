@@ -9,12 +9,6 @@ import { LoginModal } from 'src/components/modals/LoginModal'
 
 import './GraveyardPage.css'
 
-interface IdeaProps {
-  id: number
-  subject: string
-  body: string
-}
-
 interface AuthButtonProps {
   isAuthenticated: boolean
   handleLogout: () => void
@@ -25,29 +19,6 @@ const GraveyardPage = (): JSX.Element => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
   const { currentUser, isAuthenticated, logOut } = useAuth()
-
-  const failedIdeas: IdeaProps[] = [
-    {
-      id: 1,
-      subject: 'Failed idea',
-      body: 'This is my first failed idea. I started very enthusiastic but ended not even finishing my cool idea.',
-    },
-    {
-      id: 2,
-      subject: 'Failed idea',
-      body: 'This is my first failed idea. I started very enthusiastic but ended not even finishing my cool idea.',
-    },
-    {
-      id: 3,
-      subject: 'Failed idea',
-      body: 'This is my first failed idea. I started very enthusiastic but ended not even finishing my cool idea.',
-    },
-    {
-      id: 4,
-      subject: 'Failed idea',
-      body: 'This is my first failed idea. I started very enthusiastic but ended not even finishing my cool idea.',
-    },
-  ]
 
   const handleOnClose = (): void => setIsLoginModalOpen(false)
   const handleIsLoginModalOpen = (): void => setIsLoginModalOpen(true)
