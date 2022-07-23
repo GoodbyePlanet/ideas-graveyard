@@ -41,9 +41,6 @@ export const Success = ({ ideas }: CellSuccessProps<IdeasQuery>) => {
             createdAt={idea.createdAt}
           />
         ))}
-        <div className="shovelContainer">
-          <img className="shovelImg" src="shovel.svg" alt="Shovel" />
-        </div>
       </div>
     </div>
   )

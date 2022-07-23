@@ -1,7 +1,6 @@
 .shovelContainer {
-  position: absolute;
-  right: 0;
-  top: 50%;
+  position: fixed;
+  right: 10%;
   background: white;
   border-radius: 50%;
   border: 1px solid black;

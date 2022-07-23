@@ -15,6 +15,10 @@ interface AuthButtonProps {
   handleIsLoginModalOpen: () => void
 }
 
+interface AddNewIdeaProps {
+  isAuthenticated: boolean
+}
+
 const GraveyardPage = (): JSX.Element => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
@@ -37,7 +41,20 @@ const GraveyardPage = (): JSX.Element => {
       </Header>
       <LoginModal show={isLoginModalOpen} handleOnClose={handleOnClose} />
       <IdeasCell />
+      <AddNewIdea isAuthenticated={isAuthenticated} />
     </>
+  )
+}
+
+const AddNewIdea = ({ isAuthenticated }: AddNewIdeaProps): JSX.Element => {
+  if (!isAuthenticated) {
+    return null
+  }
+
+  return (
+    <div className="shovelContainer">
+      <img className="shovelImg" src="shovel.svg" alt="Shovel" />
+    </div>
   )
 }
 
