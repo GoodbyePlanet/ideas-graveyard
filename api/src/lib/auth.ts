@@ -95,9 +95,11 @@ export const hasRole = (roles: AllowedRoles): boolean => {
       )
     } else if (typeof context.currentUser.roles === 'string') {
       // roles to check is an array, currentUser.roles is a string
-      return roles.some(
-        (allowedRole) => context.currentUser?.roles === allowedRole
-      )
+      return roles.some((allowedRole) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        return context.currentUser?.roles === allowedRole
+      })
     }
   }
 
