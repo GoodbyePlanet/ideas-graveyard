@@ -16,7 +16,7 @@ interface IdeaProps {
 }
 
 interface AuthButtonProps {
-  currentUser: any
+  isAuthenticated: boolean
   handleLogout: () => void
   handleIsLoginModalOpen: () => void
 }
@@ -24,7 +24,7 @@ interface AuthButtonProps {
 const GraveyardPage = (): JSX.Element => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
-  const { currentUser, logOut } = useAuth()
+  const { currentUser, isAuthenticated, logOut } = useAuth()
 
   const failedIdeas: IdeaProps[] = [
     {
@@ -59,7 +59,7 @@ const GraveyardPage = (): JSX.Element => {
 
       <Header user={currentUser?.email as string}>
         <AuthButton
-          currentUser={currentUser}
+          isAuthenticated={isAuthenticated}
           handleLogout={handleLogout}
           handleIsLoginModalOpen={handleIsLoginModalOpen}
         />
@@ -81,15 +81,15 @@ const GraveyardPage = (): JSX.Element => {
 }
 
 const AuthButton = ({
-  currentUser,
+  isAuthenticated,
   handleLogout,
   handleIsLoginModalOpen,
 }: AuthButtonProps): JSX.Element => (
   <button
     className="text-base mr-4 hover:bg-black text-black hover:text-white py-2 px-4 border rounded"
-    onClick={currentUser ? handleLogout : handleIsLoginModalOpen}
+    onClick={isAuthenticated ? handleLogout : handleIsLoginModalOpen}
   >
-    {currentUser ? 'Logout' : 'Login'}
+    {isAuthenticated ? 'Logout' : 'Login'}
   </button>
 )
 
