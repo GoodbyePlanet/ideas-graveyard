@@ -14,11 +14,19 @@ export default async () => {
         title: 'My first failed idea',
         body: 'This is my first idea that I didnt finished',
         user: 'Raskoljnikov',
+        userId: '66c7e37a-9be7-47e6-b788-e91770e4e054',
       },
       {
         title: 'My second failed idea',
         body: 'This is second failed idea that I didnt finished',
         user: 'Raskoljnikov',
+        userId: '66c7e37a-9be7-47e6-b788-e91770e4e054',
+      },
+      {
+        title: 'Third failed idea',
+        body: 'This is third failed idea that I didnt finished',
+        user: 'Ivanova',
+        userId: '55c7e37a-9be7-47e6-b788-e91770e4e077',
       },
     ]
 
