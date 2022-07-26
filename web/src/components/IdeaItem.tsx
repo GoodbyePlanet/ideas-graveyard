@@ -31,7 +31,7 @@ export const IdeaItem = ({
 
   return (
     <div className="idea-item-container flex flex-col items-center p-4 w-96 m-8 border-2 border-gray-200">
-      {isLoggedInUser() && <div>E</div>}
+      {isLoggedInUser() && <div></div>}
       <img className="w-32 h-32" src="rip.png" alt="Rip icon" />
       <p className="mt-4 text-2xl font-semibold">{title}</p>
       <p style={{ fontSize: 'var(--fs-small)' }} className="mt-4 text-center">

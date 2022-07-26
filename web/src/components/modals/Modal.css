@@ -18,7 +18,8 @@
   flex-direction: column;
   justify-content: center;
   width: 35rem;
-  height: 20rem;
+  height: 45%;
+  min-height: 20rem;
   border-radius: 0.5rem;
 
   opacity: 0;
