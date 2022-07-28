@@ -3,7 +3,8 @@ export const schema = gql`
     id: Int!
     title: String!
     body: String
-    user: String
+    user: String!
+    userId: String!
     createdAt: DateTime!
   }
 
@@ -15,13 +16,15 @@ export const schema = gql`
   input CreateIdeaInput {
     title: String!
     body: String
-    user: String
+    user: String!
+    userId: String!
   }
 
   input UpdateIdeaInput {
     title: String
     body: String
     user: String
+    userId: String
   }
 
   type Mutation {

@@ -1,12 +1,14 @@
 import { ReactNode } from 'react'
 
+import { getUserName } from 'src/utils/utils'
+
 interface HeaderProps {
   user: string
   children: ReactNode
 }
 
 export const Header = ({ user, children }: HeaderProps): JSX.Element => {
-  const userName = user?.split('@')[0]
+  const userName = getUserName(user)
 
   return (
     <header>

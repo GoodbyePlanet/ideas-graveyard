@@ -1,13 +1,9 @@
-button:disabled,
-button[disabled] {
-  cursor: not-allowed;
-}
-
-input {
+textarea {
   font-size: var(--fs-small);
+  resize: none;
 }
 
-.email-error {
+.error {
   font-size: var(--fs-extra-small);
   color: black;
   margin-top: 0.5rem;

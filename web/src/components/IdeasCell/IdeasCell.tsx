@@ -15,6 +15,7 @@ export const QUERY = gql`
       title
       body
       user
+      userId
       createdAt
     }
   }
@@ -38,6 +39,7 @@ export const Success = ({ ideas }: CellSuccessProps<IdeasQuery>) => {
             title={idea.title}
             body={idea.body}
             user={idea.user}
+            userId={idea.userId}
             createdAt={idea.createdAt}
           />
         ))}

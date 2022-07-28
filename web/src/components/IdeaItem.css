@@ -1,7 +1,7 @@
-.ideaItemContainer {
+.idea-item-container {
   box-shadow: 11px 16px 25px 6px rgba(0,0,0,0.1);
 }
 
-.avatarFont {
+.avatar-font {
  font-size: var(--fs-small);
 }

@@ -22,10 +22,12 @@ describe('ideas', () => {
 
   scenario('creates a idea', async () => {
     const result = await createIdea({
-      input: { title: 'String' },
+      input: { title: 'String', user: 'String', userId: 'String' },
     })
 
     expect(result.title).toEqual('String')
+    expect(result.user).toEqual('String')
+    expect(result.userId).toEqual('String')
   })
 
   scenario('updates a idea', async (scenario: StandardScenario) => {
