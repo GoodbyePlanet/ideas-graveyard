@@ -7,6 +7,7 @@ import { QUERY } from 'src/components/IdeasCell/IdeasCell'
 import { Modal } from 'src/components/modals/Modal'
 
 import './BuryIdeaModal.css'
+import { getUserName } from 'src/utils/utils'
 
 interface BuryIdeaModalProps {
   show: boolean
@@ -96,7 +97,7 @@ export const BuryIdeaModal = ({
         input: {
           title,
           body,
-          user: currentUser?.email,
+          user: getUserName(currentUser?.email),
           userId: currentUser?.sub,
         },
       },
