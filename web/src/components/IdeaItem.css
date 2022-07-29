@@ -1,7 +1,19 @@
 .idea-item-container {
-  box-shadow: 11px 16px 25px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
+  box-shadow: 11px 16px 25px 6px rgba(0, 0, 0, 0.1);
+  transition: 1s;
 }
 
-.avatar-font {
- font-size: var(--fs-small);
+.idea-item-container:hover {
+  transform: scale(1.1);
+}
+
+.idea-body {
+  font-size: var(--fs-small);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
 }

@@ -10,7 +10,7 @@ export const schema = gql`
 
   type Query {
     ideas: [Idea!]! @skipAuth
-    idea(id: Int!): Idea @requireAuth
+    idea(id: Int!): Idea @skipAuth
   }
 
   input CreateIdeaInput {
