@@ -12,7 +12,11 @@
   },
   "eslintConfig": {
     "extends": "@redwoodjs/eslint-config",
-    "root": true
+    "root": true,
+    "rules": {
+      "jsx-a11y/no-static-element-interactions": 0,
+      "jsx-a11y/click-events-have-key-events": 0
+    }
   },
   "engines": {
     "node": ">=14.19 <=16.x",

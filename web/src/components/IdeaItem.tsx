@@ -3,11 +3,13 @@ import { useAuth } from '@redwoodjs/auth'
 import { ActionType } from 'src/types/ActionType'
 
 import './IdeaItem.css'
+import React from 'react'
+import { logger } from 'src/lib/logger'
 
 interface IdeaItemProps {
   title: string
   body: string
-  user: string
+  userName: string
   userId: string
   createdAt: string
   onClick: (action) => void
@@ -16,7 +18,7 @@ interface IdeaItemProps {
 export const IdeaItem = ({
   title,
   body,
-  user,
+  userName,
   userId,
   createdAt,
   onClick,
@@ -36,23 +38,36 @@ export const IdeaItem = ({
   const handleViewIdea = (): void => onClick(ActionType.VIEW)
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-    <div
-      onClick={handleViewIdea}
-      className="idea-item-container flex flex-col items-center p-4 w-96 m-8 border-2 border-gray-200"
-    >
-      {isLoggedInUser() && <div></div>}
-      <img className="w-32 h-32" src="rip.png" alt="Rip icon" />
-      <p className="mt-4 text-2xl w-full truncate text-center font-semibold">
-        {title}
-      </p>
-      <p className="idea-body mt-4 text-center">{body}</p>
+    <div className="idea-item-container flex flex-col items-center p-4 w-96 m-8 border-2 border-gray-200">
+      <div className="w-full" onClick={handleViewIdea}>
+        <img className="m-auto w-32 h-32" src="rip.png" alt="Rip icon" />
+        <p className="mt-4 text-2xl w-full truncate text-center font-semibold">
+          {title}
+        </p>
+        <p className="idea-body mt-4 text-center">{body}</p>
+      </div>
 
-      <div className="flex items-center w-full mt-4">
+      <div className="flex items-center justify-between w-full mt-6">
         <div className="text-sm">
-          <p className="text-gray-900 leading-none">{user}</p>
+          <p className="text-gray-900 leading-none">{userName}</p>
           <p className="text-gray-600">{getCreationDate()}</p>
         </div>
+        {isLoggedInUser() && (
+          <div>
+            <button
+              onClick={() => console.log('CLICKING ON THE DELETE BUTTON')}
+            >
+              <img
+                className="remove-img h-8 pr-2"
+                src="remove.svg"
+                alt="Shovel"
+              />
+            </button>
+            <button onClick={() => console.log('CLICKING ON THE EDIT BUTTON')}>
+              <img className="edit-shovel-img" src="shovel.svg" alt="Shovel" />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )
