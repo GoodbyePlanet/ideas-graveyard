@@ -3,6 +3,7 @@ import React, { ReactNode, useState } from 'react'
 import { useAuth } from '@redwoodjs/auth'
 import { MetaTags } from '@redwoodjs/web'
 
+import { AuthButton } from 'src/components/AuthButton'
 import { Header } from 'src/components/Header'
 import IdeasCell from 'src/components/IdeasCell'
 import { BuriedIdeaEdit } from 'src/components/modals/BuriedIdeaEditModal'
@@ -10,20 +11,10 @@ import { BuriedIdeaView } from 'src/components/modals/BuriedIdeaViewModal'
 import { BuryIdeaModal } from 'src/components/modals/BuryIdeaModal'
 import { DeleteIdeaModal } from 'src/components/modals/DeleteIdeaModal'
 import { LoginModal } from 'src/components/modals/LoginModal'
+import { Shovel } from 'src/components/Shovel'
 import { ActionType } from 'src/types/ActionType'
 
 import './GraveyardPage.css'
-
-interface AuthButtonProps {
-  isAuthenticated: boolean
-  handleLogout: () => void
-  handleIsLoginModalOpen: () => void
-}
-
-interface ShovelProps {
-  isAuthenticated: boolean
-  onClick: () => void
-}
 
 const GraveyardPage = (): JSX.Element => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
@@ -95,8 +86,6 @@ const GraveyardPage = (): JSX.Element => {
         {action === ActionType.CREATE && (
           <BuryIdeaModal
             show={isBuryIdeaModalOpen}
-            action={action}
-            ideaId={ideaId}
             handleClose={handleBuryIdeaModalClose}
           />
         )}
@@ -138,30 +127,5 @@ interface BuryIdeaProps {
 const BuryIdea = ({ children }: BuryIdeaProps): JSX.Element => {
   return <>{children}</>
 }
-
-const Shovel = ({ isAuthenticated, onClick }: ShovelProps): JSX.Element => {
-  if (!isAuthenticated) {
-    return null
-  }
-
-  return (
-    <button onClick={onClick} className="shovelContainer">
-      <img className="shovelImg" src="shovel.svg" alt="Shovel" />
-    </button>
-  )
-}
-
-const AuthButton = ({
-  isAuthenticated,
-  handleLogout,
-  handleIsLoginModalOpen,
-}: AuthButtonProps): JSX.Element => (
-  <button
-    className="text-base mr-4 hover:bg-black text-black hover:text-white py-2 px-4 border rounded"
-    onClick={isAuthenticated ? handleLogout : handleIsLoginModalOpen}
-  >
-    {isAuthenticated ? 'Logout' : 'Login'}
-  </button>
-)
 
 export default GraveyardPage

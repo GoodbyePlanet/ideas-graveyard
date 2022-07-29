@@ -5,15 +5,12 @@ import { useMutation } from '@redwoodjs/web'
 
 import { QUERY } from 'src/components/IdeasCell/IdeasCell'
 import { Modal } from 'src/components/modals/Modal'
-import { ActionType } from 'src/types/ActionType'
 import { FormErrors } from 'src/types/FormErrors'
 import { getUserName } from 'src/utils/utils'
 
 import './BuryIdeaModal.css'
 
 interface BuryIdeaModalProps {
-  ideaId?: number
-  action: ActionType
   show: boolean
   handleClose: () => void
 }
@@ -21,11 +18,7 @@ interface BuryIdeaModalProps {
 const CREATE_IDEA_MUTATION = gql`
   mutation CreateIdeaMutation($input: CreateIdeaInput!) {
     createIdea(input: $input) {
-      title
-      body
-      user
-      userId
-      createdAt
+      id
     }
   }
 `
