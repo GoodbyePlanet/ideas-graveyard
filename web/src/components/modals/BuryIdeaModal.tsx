@@ -1,11 +1,12 @@
 import React, { ChangeEvent, useState } from 'react'
 
 import { useAuth } from '@redwoodjs/auth'
-import { useMutation, useQuery } from '@redwoodjs/web'
+import { useMutation } from '@redwoodjs/web'
 
 import { QUERY } from 'src/components/IdeasCell/IdeasCell'
 import { Modal } from 'src/components/modals/Modal'
 import { ActionType } from 'src/types/ActionType'
+import { FormErrors } from 'src/types/FormErrors'
 import { getUserName } from 'src/utils/utils'
 
 import './BuryIdeaModal.css'
@@ -16,30 +17,6 @@ interface BuryIdeaModalProps {
   show: boolean
   handleClose: () => void
 }
-
-interface BuriedIdeaViewProps {
-  show: boolean
-  ideaId: number
-  onClose: () => void
-}
-
-interface FormErrors {
-  title: boolean
-  body: boolean
-}
-
-export const QUERY_IDEA_BY_ID = gql`
-  query IdeaQuery($id: Int!) {
-    idea(id: $id) {
-      id
-      title
-      body
-      user
-      userId
-      createdAt
-    }
-  }
-`
 
 const CREATE_IDEA_MUTATION = gql`
   mutation CreateIdeaMutation($input: CreateIdeaInput!) {
@@ -54,8 +31,6 @@ const CREATE_IDEA_MUTATION = gql`
 `
 
 export const BuryIdeaModal = ({
-  ideaId,
-  action,
   show,
   handleClose,
 }: BuryIdeaModalProps): JSX.Element => {
@@ -77,10 +52,6 @@ export const BuryIdeaModal = ({
 
   if (!show) {
     return null
-  }
-
-  if (action === ActionType.VIEW) {
-    return <BuriedIdeaView show={show} ideaId={ideaId} onClose={handleClose} />
   }
 
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>): void =>
@@ -168,36 +139,6 @@ export const BuryIdeaModal = ({
           </button>
         </div>
       </form>
-    </Modal>
-  )
-}
-
-const BuriedIdeaView = ({
-  show,
-  ideaId,
-  onClose,
-}: BuriedIdeaViewProps): JSX.Element => {
-  const { loading, data } = useQuery(QUERY_IDEA_BY_ID, {
-    variables: { id: ideaId },
-  })
-
-  return (
-    <Modal onClose={onClose} show={show}>
-      {loading ? (
-        <div className="text-center font-semibold">Loading ....</div>
-      ) : (
-        <>
-          <p className="mt-4 text-2xl text-center font-semibold">
-            {data?.idea.title}
-          </p>
-          <p
-            style={{ fontSize: 'var(--fs-small)' }}
-            className="mt-4 text-center"
-          >
-            {data?.idea.body}
-          </p>
-        </>
-      )}
     </Modal>
   )
 }

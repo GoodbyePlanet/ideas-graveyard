@@ -3,8 +3,6 @@ import { useAuth } from '@redwoodjs/auth'
 import { ActionType } from 'src/types/ActionType'
 
 import './IdeaItem.css'
-import React from 'react'
-import { logger } from 'src/lib/logger'
 
 interface IdeaItemProps {
   title: string
@@ -36,6 +34,8 @@ export const IdeaItem = ({
     isAuthenticated && currentUser.sub === userId
 
   const handleViewIdea = (): void => onClick(ActionType.VIEW)
+  const handleEditIdea = (): void => onClick(ActionType.EDIT)
+  const handleDeleteIdea = (): void => onClick(ActionType.DELETE)
 
   return (
     <div className="idea-item-container flex flex-col items-center p-4 w-96 m-8 border-2 border-gray-200">
@@ -54,17 +54,11 @@ export const IdeaItem = ({
         </div>
         {isLoggedInUser() && (
           <div>
-            <button
-              onClick={() => console.log('CLICKING ON THE DELETE BUTTON')}
-            >
-              <img
-                className="remove-img h-8 pr-2"
-                src="remove.svg"
-                alt="Shovel"
-              />
+            <button onClick={handleDeleteIdea}>
+              <img className="remove-img" src="remove.svg" alt="Remove" />
             </button>
-            <button onClick={() => console.log('CLICKING ON THE EDIT BUTTON')}>
-              <img className="edit-shovel-img" src="shovel.svg" alt="Shovel" />
+            <button onClick={handleEditIdea}>
+              <img className="edit-shovel-img" src="shovel.svg" alt="Edit" />
             </button>
           </div>
         )}
