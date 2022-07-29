@@ -1,13 +1,16 @@
 import { useAuth } from '@redwoodjs/auth'
 
+import { ActionType } from 'src/types/ActionType'
+
 import './IdeaItem.css'
 
-interface IdeaProps {
+interface IdeaItemProps {
   title: string
   body: string
   user: string
   userId: string
   createdAt: string
+  onClick: (action) => void
 }
 
 export const IdeaItem = ({
@@ -16,7 +19,8 @@ export const IdeaItem = ({
   user,
   userId,
   createdAt,
-}: IdeaProps): JSX.Element => {
+  onClick,
+}: IdeaItemProps): JSX.Element => {
   const { isAuthenticated, currentUser } = useAuth()
 
   const getCreationDate = (): string =>
@@ -29,14 +33,20 @@ export const IdeaItem = ({
   const isLoggedInUser = (): boolean =>
     isAuthenticated && currentUser.sub === userId
 
+  const handleViewIdea = (): void => onClick(ActionType.VIEW)
+
   return (
-    <div className="idea-item-container flex flex-col items-center p-4 w-96 m-8 border-2 border-gray-200">
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+    <div
+      onClick={handleViewIdea}
+      className="idea-item-container flex flex-col items-center p-4 w-96 m-8 border-2 border-gray-200"
+    >
       {isLoggedInUser() && <div></div>}
       <img className="w-32 h-32" src="rip.png" alt="Rip icon" />
-      <p className="mt-4 text-2xl font-semibold">{title}</p>
-      <p style={{ fontSize: 'var(--fs-small)' }} className="mt-4 text-center">
-        {body}
+      <p className="mt-4 text-2xl w-full truncate text-center font-semibold">
+        {title}
       </p>
+      <p className="idea-body mt-4 text-center">{body}</p>
 
       <div className="flex items-center w-full mt-4">
         <div className="text-sm">

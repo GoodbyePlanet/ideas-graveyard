@@ -7,6 +7,7 @@ import { Header } from 'src/components/Header'
 import IdeasCell from 'src/components/IdeasCell'
 import { BuryIdeaModal } from 'src/components/modals/BuryIdeaModal'
 import { LoginModal } from 'src/components/modals/LoginModal'
+import { ActionType } from 'src/types/ActionType'
 
 import './GraveyardPage.css'
 
@@ -24,14 +25,24 @@ interface ShovelProps {
 const GraveyardPage = (): JSX.Element => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
   const [isBuryIdeaModalOpen, setIsBuryIdeaModalOpen] = useState(false)
+  const [action, setAction] = useState(ActionType.CREATE)
+  const [ideaId, setIdeaId] = useState(null)
 
   const { currentUser, isAuthenticated, logOut } = useAuth()
 
   const handleLoginModalClose = (): void => setIsLoginModalOpen(false)
-  const handleBuryIdeaModalClose = (): void => setIsBuryIdeaModalOpen(false)
+  const handleBuryIdeaModalClose = (): void => {
+    setIsBuryIdeaModalOpen(false)
+    setAction(ActionType.CREATE)
+  }
   const handleIsLoginModalOpen = (): void => setIsLoginModalOpen(true)
   const handleLogout = async (): Promise<void> => await logOut()
   const handleOpenBuryIdeaModal = (): void => setIsBuryIdeaModalOpen(true)
+  const handleEditOrViewIdea = (id: number, action: ActionType): void => {
+    setIsBuryIdeaModalOpen(true)
+    setAction(action)
+    setIdeaId(id)
+  }
 
   return (
     <>
@@ -50,9 +61,11 @@ const GraveyardPage = (): JSX.Element => {
       />
       <BuryIdeaModal
         show={isBuryIdeaModalOpen}
+        action={action}
+        ideaId={ideaId}
         handleClose={handleBuryIdeaModalClose}
       />
-      <IdeasCell />
+      <IdeasCell onClick={(id, action) => handleEditOrViewIdea(id, action)} />
       <Shovel
         isAuthenticated={isAuthenticated}
         onClick={handleOpenBuryIdeaModal}
