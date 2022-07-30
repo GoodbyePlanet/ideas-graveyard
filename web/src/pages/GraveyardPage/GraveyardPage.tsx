@@ -78,7 +78,7 @@ const GraveyardPage = (): JSX.Element => {
       {state.action === ActionType.CREATE && (
         <BuryIdeaModal
           show={state.isBuryIdeaModalOpen}
-          handleClose={() =>
+          onClose={() =>
             dispatch({ type: IdeaModalActionType.BURY_IDEA_MODAL_CLOSE })
           }
         />
