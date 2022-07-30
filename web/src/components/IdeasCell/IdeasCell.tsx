@@ -44,7 +44,7 @@ export const Success = ({
             key={id}
             title={title}
             body={body}
-            user={user}
+            userName={user}
             userId={userId}
             createdAt={createdAt}
             onClick={(action) => onClick(id, action)}

@@ -1,4 +1,6 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { useState } from 'react'
+
+import { useForm } from 'react-hook-form'
 
 import { useAuth } from '@redwoodjs/auth'
 
@@ -11,14 +13,22 @@ interface LoginModalProps {
   show: boolean
 }
 
+type FormValues = {
+  email: string
+}
+
 export const LoginModal = ({
   show,
   handleOnClose,
 }: LoginModalProps): JSX.Element => {
-  const [email, setEmail] = useState('')
-  const [emailError, setEmailError] = useState(false)
   const [loginSuccess, setLoginSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>()
 
   const { logIn } = useAuth()
 
@@ -26,27 +36,11 @@ export const LoginModal = ({
     return null
   }
 
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>): void =>
-    setEmail(event.target.value)
-
-  const isValidEmail = (): boolean => /\S+@\S+\.\S+/.test(email)
-
-  const handleLogin = async (
-    event: React.MouseEvent<HTMLButtonElement>
-  ): Promise<void> => {
-    event.preventDefault()
-
-    if (!isValidEmail()) {
-      setEmailError(true)
-      return
-    } else {
-      setEmailError(false)
-    }
-
+  const handleLogin = async (data): Promise<void> => {
     try {
       setLoading(true)
       const { error } = await logIn({
-        email,
+        email: data.email,
         redirectTo: `${window.location.origin}/graveyard`,
       })
 
@@ -62,30 +56,37 @@ export const LoginModal = ({
     }
   }
 
+  const onClose = (): void => {
+    reset()
+    setLoginSuccess(false)
+    handleOnClose()
+  }
+
   return (
-    <Modal show={show} onClose={handleOnClose}>
+    <Modal show={show} onClose={onClose}>
       <h3 className="text-2xl font-medium text-center">
         Login using magic link
       </h3>
-      <form>
+      <form onSubmit={handleSubmit(handleLogin)}>
         <div className="mt-4">
           <div>
             <input
               type="text"
               placeholder="Email"
               className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-black"
-              value={email}
-              onChange={handleEmailChange}
+              {...register('email', {
+                required: true,
+                pattern: /\S+@\S+\.\S+/,
+              })}
             ></input>
-            {emailError && (
+            {errors.email && (
               <p className="email-error">Please enter valid email</p>
             )}
           </div>
           <button
-            type="button"
+            type="submit"
             className="mt-6 text-base mr-4 hover:bg-black text-black hover:text-white py-2 px-4 border rounded focus:outline:none"
             disabled={loading}
-            onClick={(e) => handleLogin(e)}
           >
             Send magic link
           </button>
