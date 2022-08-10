@@ -1,47 +1,55 @@
-import React, { useState } from 'react'
+import React, { useReducer, useState } from 'react'
 
 import { useAuth } from '@redwoodjs/auth'
 import { MetaTags } from '@redwoodjs/web'
 
+import { AuthButton } from 'src/components/AuthButton'
 import { Header } from 'src/components/Header'
 import IdeasCell from 'src/components/IdeasCell'
+import { BuriedIdeaEdit } from 'src/components/modals/BuriedIdeaEditModal'
+import { BuriedIdeaView } from 'src/components/modals/BuriedIdeaViewModal'
 import { BuryIdeaModal } from 'src/components/modals/BuryIdeaModal'
+import { DeleteIdeaModal } from 'src/components/modals/DeleteIdeaModal'
 import { LoginModal } from 'src/components/modals/LoginModal'
+import { Shovel } from 'src/components/Shovel'
+import {
+  IdeaModalActionType,
+  initialIdeaModalState,
+  reducer,
+} from 'src/reducers/ideaReducer'
 import { ActionType } from 'src/types/ActionType'
 
 import './GraveyardPage.css'
 
-interface AuthButtonProps {
-  isAuthenticated: boolean
-  handleLogout: () => void
-  handleIsLoginModalOpen: () => void
-}
-
-interface ShovelProps {
-  isAuthenticated: boolean
-  onClick: () => void
-}
-
 const GraveyardPage = (): JSX.Element => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
-  const [isBuryIdeaModalOpen, setIsBuryIdeaModalOpen] = useState(false)
-  const [action, setAction] = useState(ActionType.CREATE)
-  const [ideaId, setIdeaId] = useState(null)
+  const [state, dispatch] = useReducer(reducer, initialIdeaModalState)
 
   const { currentUser, isAuthenticated, logOut } = useAuth()
 
-  const handleLoginModalClose = (): void => setIsLoginModalOpen(false)
-  const handleBuryIdeaModalClose = (): void => {
-    setIsBuryIdeaModalOpen(false)
-    setAction(ActionType.CREATE)
-  }
-  const handleIsLoginModalOpen = (): void => setIsLoginModalOpen(true)
   const handleLogout = async (): Promise<void> => await logOut()
-  const handleOpenBuryIdeaModal = (): void => setIsBuryIdeaModalOpen(true)
-  const handleEditOrViewIdea = (id: number, action: ActionType): void => {
-    setIsBuryIdeaModalOpen(true)
-    setAction(action)
-    setIdeaId(id)
+  const handleIsLoginModalOpen = (): void => setIsLoginModalOpen(true)
+  const handleLoginModalClose = (): void => setIsLoginModalOpen(false)
+
+  const handleSelectedIdea = (id: number, action: ActionType): void => {
+    switch (action) {
+      case ActionType.VIEW:
+        dispatch({ type: IdeaModalActionType.BURIED_IDEA_VIEW_MODAL_OPEN })
+        break
+      case ActionType.EDIT:
+        dispatch({ type: IdeaModalActionType.BURIED_IDEA_EDIT_MODAL_OPEN })
+        break
+      case ActionType.DELETE:
+        dispatch({ type: IdeaModalActionType.BURIED_IDEA_DELETE_MODAL_OPEN })
+        break
+      default:
+        throw new Error('Unknown action type!')
+    }
+
+    dispatch({
+      type: IdeaModalActionType.SET_ACTION,
+      payload: { actionType: action, ideaId: id },
+    })
   }
 
   return (
@@ -59,44 +67,57 @@ const GraveyardPage = (): JSX.Element => {
         show={isLoginModalOpen}
         handleOnClose={handleLoginModalClose}
       />
-      <BuryIdeaModal
-        show={isBuryIdeaModalOpen}
-        action={action}
-        ideaId={ideaId}
-        handleClose={handleBuryIdeaModalClose}
-      />
-      <IdeasCell onClick={(id, action) => handleEditOrViewIdea(id, action)} />
+      <IdeasCell onClick={(id, action) => handleSelectedIdea(id, action)} />
       <Shovel
         isAuthenticated={isAuthenticated}
-        onClick={handleOpenBuryIdeaModal}
+        onClick={() =>
+          dispatch({ type: IdeaModalActionType.BURY_IDEA_MODAL_OPEN })
+        }
       />
+
+      {state.action === ActionType.CREATE && (
+        <BuryIdeaModal
+          show={state.isBuryIdeaModalOpen}
+          onClose={() =>
+            dispatch({ type: IdeaModalActionType.BURY_IDEA_MODAL_CLOSE })
+          }
+        />
+      )}
+      {state.action === ActionType.EDIT && (
+        <BuriedIdeaEdit
+          show={state.isBuriedIdeaEditModalOpen}
+          ideaId={state.ideaId}
+          handleClose={() =>
+            dispatch({
+              type: IdeaModalActionType.BURIED_IDEA_EDIT_MODAL_CLOSE,
+            })
+          }
+        />
+      )}
+      {state.action === ActionType.VIEW && (
+        <BuriedIdeaView
+          show={state.isBuriedIdeaViewModalOpen}
+          ideaId={state.ideaId}
+          onClose={() =>
+            dispatch({
+              type: IdeaModalActionType.BURIED_IDEA_VIEW_MODAL_CLOSE,
+            })
+          }
+        />
+      )}
+      {state.action === ActionType.DELETE && (
+        <DeleteIdeaModal
+          show={state.idBuriedIdeaDeleteModalOpen}
+          ideaId={state.ideaId}
+          onClose={() =>
+            dispatch({
+              type: IdeaModalActionType.BURIED_IDEA_DELETE_MODAL_CLOSE,
+            })
+          }
+        />
+      )}
     </>
   )
 }
-
-const Shovel = ({ isAuthenticated, onClick }: ShovelProps): JSX.Element => {
-  if (!isAuthenticated) {
-    return null
-  }
-
-  return (
-    <button onClick={onClick} className="shovelContainer">
-      <img className="shovelImg" src="shovel.svg" alt="Shovel" />
-    </button>
-  )
-}
-
-const AuthButton = ({
-  isAuthenticated,
-  handleLogout,
-  handleIsLoginModalOpen,
-}: AuthButtonProps): JSX.Element => (
-  <button
-    className="text-base mr-4 hover:bg-black text-black hover:text-white py-2 px-4 border rounded"
-    onClick={isAuthenticated ? handleLogout : handleIsLoginModalOpen}
-  >
-    {isAuthenticated ? 'Logout' : 'Login'}
-  </button>
-)
 
 export default GraveyardPage

@@ -33,6 +33,10 @@ body {
   font-family: Akkuratmono-Regular, monospace;
 }
 
+:focus-visible {
+  outline: none;
+}
+
 @media (min-width: 50em) {
   :root {
     --fs-400: 1.875rem;

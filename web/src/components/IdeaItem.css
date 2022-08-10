@@ -17,3 +17,30 @@
   line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+
+.edit-shovel-img {
+  height: 2rem;
+  width: 2rem;
+  padding: 2px;
+  border-radius: 50%;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.edit-shovel-img:hover {
+  border: 2px solid black;
+}
+
+.remove-img {
+  height: 2rem;
+  width: 2rem;
+  padding: 2px;
+  margin-right: 10px;
+  border-radius: 50%;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.remove-img:hover {
+  border: 2px solid black;
+}
